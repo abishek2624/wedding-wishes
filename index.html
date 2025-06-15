@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Anniversary</title>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Open+Sans&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Open Sans', sans-serif;
+      background: linear-gradient(to top right, #ffe6e6, #fff0f5);
+      text-align: center;
+      overflow-x: hidden;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      padding: 40px 20px;
+      position: relative;
+      z-index: 2;
+    }
+    h1 {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.5rem;
+      color: #d63384;
+    }
+    #quote {
+      font-style: italic;
+      margin: 20px 0;
+      color: #555;
+    }
+    .photo-frame img {
+      width: 80%;
+      max-width: 350px;
+      border-radius: 15px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      margin: 20px 0;
+    }
+    .wish {
+      margin-top: 30px;
+      font-size: 1.2rem;
+      color: #6c757d;
+    }
+    .music-toggle {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      background: transparent;
+      border: none;
+      font-size: 1.8rem;
+      cursor: pointer;
+      z-index: 10;
+    }
+    .hearts {
+      position: fixed;
+      bottom: -100px;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: red;
+      transform: rotate(45deg);
+      animation: float 5s infinite ease-in;
+      opacity: 0.7;
+    }
+    .heart::before,
+    .heart::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: red;
+      border-radius: 50%;
+    }
+    .heart::before { top: -10px; left: 0; }
+    .heart::after { left: -10px; top: 0; }
+
+    @keyframes float {
+      0% { transform: translateY(0) rotate(45deg); }
+      100% { transform: translateY(-800px) rotate(45deg); opacity: 0; }
+    }
+
+    #petals {
+      pointer-events: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+    .petal {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-image: url('https://i.ibb.co/5sZqD1h/petal.png');
+      background-size: cover;
+      animation: fall 10s linear infinite;
+    }
+    @keyframes fall {
+      0% { transform: translateY(0) rotate(0deg); }
+      100% { transform: translateY(100vh) rotate(360deg); }
+    }
+
+    #messages {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      font-size: 1.1rem;
+      color: #d63384;
+      font-family: 'Dancing Script', cursive;
+      animation: fadeInOut 8s ease-in-out infinite;
+      z-index: 5;
+    }
+    @keyframes fadeInOut {
+      0%, 100% { opacity: 0; }
+      30%, 70% { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>இனிய திருமண வாழ்த்துக்கள் ❤️</h1>
+    <p id="quote">“Forever is a long time, but I wouldn’t mind spending it by your side.”</p>
+    <div class="photo-frame">
+      <img src="https://i.imgur.com/2cZ8tVw.jpg" alt="Couple" />
+    </div>
+    <div class="wish">
+      <p>Wishing you both endless love, laughter, and a journey together filled with beautiful memories. Happy Anniversary!</p>
+    </div>
+  </div>
+
+  <button class="music-toggle" onclick="toggleMusic()">🎵</button>
+  <audio id="bgMusic" autoplay loop>
+    <source src="music.mp3" type="audio/mpeg" />
+    Your browser does not support the audio element.
+  </audio>
+
+  <div id="hearts"></div>
+  <div id="petals"></div>
+  <div id="messages"></div>
+
+  <script>
+    window.onload = () => {
+      confetti({ particleCount: 150, spread: 90, origin: { y: 0.6 } });
+    }
+
+    const music = document.getElementById('bgMusic');
+    let isPlaying = true;
+    function toggleMusic() {
+      isPlaying ? music.pause() : music.play();
+      isPlaying = !isPlaying;
+    }
+
+    function createHearts() {
+      const hearts = document.getElementById('hearts');
+      setInterval(() => {
+        const heart = document.createElement('div');
+        heart.className = 'heart';
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.animationDuration = 4 + Math.random() * 3 + 's';
+        heart.style.opacity = Math.random();
+        heart.style.transform = `scale(${Math.random() * 1.5 + 0.5}) rotate(45deg)`;
+        hearts.appendChild(heart);
+        setTimeout(() => heart.remove(), 7000);
+      }, 300);
+    }
+    createHearts();
+
+    function createPetals() {
+      const petals = document.getElementById('petals');
+      setInterval(() => {
+        const petal = document.createElement('div');
+        petal.classList.add('petal');
+        petal.style.left = Math.random() * window.innerWidth + 'px';
+        petal.style.animationDuration = 5 + Math.random() * 5 + 's';
+        petals.appendChild(petal);
+        setTimeout(() => petal.remove(), 10000);
+      }, 400);
+    }
+    createPetals();
+
+    const messages = [
+      "You're my forever ❤️",
+      "Every moment with you is magic 💫",
+      "Love you to the moon and back 🌙",
+      "Two hearts. One soul. 💑",
+      "Still falling for you 💞"
+    ];
+    const msgBox = document.getElementById('messages');
+    let index = 0;
+    setInterval(() => {
+      msgBox.textContent = messages[index];
+      index = (index + 1) % messages.length;
+    }, 6000);
+  </script>
+</body>
+</html>

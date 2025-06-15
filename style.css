@@ -1,0 +1,124 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Open Sans', sans-serif;
+  background: linear-gradient(to top right, #ffe6e6, #fff0f5);
+  text-align: center;
+  overflow-x: hidden;
+}
+
+.container {
+  max-width: 600px;
+  margin: auto;
+  padding: 40px 20px;
+}
+
+h1 {
+  font-family: 'Dancing Script', cursive;
+  font-size: 2.5rem;
+  color: #d63384;
+}
+
+#quote {
+  font-style: italic;
+  margin: 20px 0;
+  color: #555;
+}
+
+.photo-frame img {
+  width: 80%;
+  max-width: 350px;
+  border-radius: 15px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  margin: 20px 0;
+}
+
+textarea {
+  width: 80%;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  resize: none;
+}
+
+button {
+  margin-top: 15px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  background-color: #d63384;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #b82e6f;
+}
+
+#thanksMessage {
+  color: #28a745;
+  font-weight: bold;
+  margin-top: 15px;
+}
+
+.music-toggle {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  background: transparent;
+  border: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+}
+
+/* Floating hearts animation */
+.hearts {
+  position: fixed;
+  bottom: -100px;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.heart {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: red;
+  transform: rotate(45deg);
+  animation: float 5s infinite ease-in;
+  opacity: 0.7;
+}
+
+.heart::before,
+.heart::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: red;
+  border-radius: 50%;
+}
+
+.heart::before {
+  top: -10px;
+  left: 0;
+}
+
+.heart::after {
+  left: -10px;
+  top: 0;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0) rotate(45deg);
+  }
+  100% {
+    transform: translateY(-800px) rotate(45deg);
+    opacity: 0;
+  }
+}
